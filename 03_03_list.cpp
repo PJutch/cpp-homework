@@ -10,12 +10,12 @@ class List {
     Node* head = nullptr;
     Node* tail = nullptr;
 
-    Node* before_tail() {
-        Node* current = head;
-        while (current != nullptr && current->next != tail) {
-            current = current->next;
+    size_t size() const {
+        size_t result = 0;
+        for (Node* current = head; current != nullptr; current = current->next) {
+            ++result;
         }
-        return current;
+        return result;
     }
 public:
     List() = default;
@@ -34,10 +34,8 @@ public:
     }
 
     void show() const {
-        Node* current = head;
-        while (current != nullptr) {
+        for (Node* current = head; current != nullptr; current = current->next) {
             std::cout << current->value << ' ';
-            current = current->next;
         }
         std::cout << '\n';
     }
@@ -83,16 +81,20 @@ public:
             head = nullptr;
         }
         
-        if (Node* before_tail_ = before_tail()) {
-            before_tail_->next = nullptr;
+        if (Node* before_tail = get(size() - 2)) {
+            before_tail->next = nullptr;
         }
 
         delete old_tail;
     }
 
     Node* get(int index) {
+        if (index < 0) {
+            return nullptr;
+        }
+
         Node* current = head;
-        while (index > 0) {
+        while (index > 0 && current != nullptr) {
             current = current->next;
             --index;
         }
@@ -104,12 +106,17 @@ int main() {
     List list{};
     list.show();
     std::cout << std::boolalpha << list.empty() << '\n';
+    std::cout << std::hex << list.get(0) << '\n';
+
+    list.pop_back();
+    list.pop_front();
 
     list.push_back(1);
     list.push_back(2);
     list.push_back(3);
     list.show();
     std::cout << std::boolalpha << list.empty() << '\n';
+    std::cout << std::hex << list.get(0) << '\n';
 
     list.pop_front();
     list.push_back(5);
@@ -118,4 +125,13 @@ int main() {
     list.pop_back();
     list.push_front(7);
     list.show();
+
+    while (!list.empty()) {
+        list.pop_back();
+    }
+    std::cout << std::boolalpha << list.empty() << '\n';
+
+    list.push_front(1);
+    list.show();
+    std::cout << std::boolalpha << list.empty() << '\n';
 }
