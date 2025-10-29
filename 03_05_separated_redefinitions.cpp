@@ -2,11 +2,13 @@
 
 class Entity_v1 {
 public:
+    virtual ~Entity_v1() = default;
     virtual void test() = 0;
 };
 
 class Entity_v2 {
 public:
+    virtual ~Entity_v2() = default;
     virtual void test() = 0;
 };
 
