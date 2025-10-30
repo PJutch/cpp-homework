@@ -10,7 +10,7 @@ class Entity {
 
     // ... lots of code ...
 
-    static void doNottest() { assert(false); }
+    static void do_not_test() { assert(false); }
 };
 
 class Attorney {
@@ -39,4 +39,5 @@ public:
 int main() {
     Client1::test();
     Client2::test();
+    // Entity::do_not_test(); // error: inacessible
 }

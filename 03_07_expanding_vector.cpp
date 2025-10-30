@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cassert>
 #include <cstddef>
 #include <initializer_list>
 #include <iterator>
@@ -79,7 +80,7 @@ private:
         std::size_t new_capacity = m_capacity != 0 ? 2 * m_capacity : 1;
 
         int* new_array = new int[new_capacity];
-        for (int i = 0; i < m_size; ++i) {
+        for (std::size_t i = 0; i < m_size; ++i) {
             new_array[0] = m_array[0];
         }
 
@@ -91,20 +92,21 @@ private:
 
 void swap(Vector& lhs, Vector& rhs) { lhs.swap(rhs); }
 
-void print_stats(const Vector& vector) {
-    std::print("filled: size = {}, capaity = {}, is_empty\n", vector.size(),
-               vector.capacity(), vector.empty());
-}
-
 int main() {
     Vector vector;
-    print_stats(vector);
+    assert(vector.size() == 0);
+    assert(vector.capacity() == 0);
+    assert(vector.empty());
 
     for (int i = 0; i < 10; ++i) {
         vector.push_back(i);
     }
-    print_stats(vector);
+    assert(vector.size() == 10);
+    assert(vector.capacity() == 16);
+    assert(!vector.empty());
 
     vector.clear();
-    print_stats(vector);
+    assert(vector.size() == 0);
+    assert(vector.capacity() == 16);
+    assert(vector.empty());
 }

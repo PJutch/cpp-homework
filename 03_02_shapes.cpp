@@ -10,13 +10,13 @@ class Triangle {
 public:
     Triangle(double a, double b, double c) : a{a}, b{b}, c{c} {}
 
-    double Perimeter() const {
+    double perimeter() const {
         return a + b + c;
     }
 
-    double Area() const {
-        double halfPerimeter = Perimeter() / 2;
-        return std::sqrt(halfPerimeter * (halfPerimeter - a) * (halfPerimeter - b) * (halfPerimeter - c));
+    double area() const {
+        double half_perimeter = perimeter() / 2;
+        return std::sqrt(half_perimeter * (half_perimeter - a) * (half_perimeter - b) * (half_perimeter - c));
     }
 };
 
@@ -26,11 +26,11 @@ class Square {
 public:
     Square(double side) : side{side} {}
 
-    double Perimeter() const {
+    double perimeter() const {
         return 4 * side;
     }
 
-    double Area() const {
+    double area() const {
         return side * side;
     }
 };
@@ -41,22 +41,22 @@ class Circle {
 public:
     Circle(double radius) : radius{radius} {}
 
-    double Perimeter() const {
+    double perimeter() const {
         return 2 * std::numbers::pi * radius;
     }
 
-    double Area() const {
+    double area() const {
         return std::numbers::pi * radius * radius;
     }
 };
 
 int main() {
     Triangle triangle{1, 1, std::sqrt(2)};
-    std::cout << triangle.Perimeter() << ' ' << triangle.Area() << '\n';
+    std::cout << triangle.perimeter() << ' ' << triangle.area() << '\n';
     
     Square square{3};
-    std::cout << square.Perimeter() << ' ' << square.Area() << '\n';
+    std::cout << square.perimeter() << ' ' << square.area() << '\n';
 
     Circle circle{2};
-    std::cout << circle.Perimeter() << ' ' << circle.Area() << '\n';
+    std::cout << circle.perimeter() << ' ' << circle.area() << '\n';
 }

@@ -7,7 +7,7 @@ struct Rectangle {
     double up;
     double down;
 
-    double Area() const {
+    double area() const {
         if (right > left && down > up) {
             return (right - left) * (down - up);
         } else {
@@ -15,7 +15,7 @@ struct Rectangle {
         }
     }
 
-    void Print() const {
+    void print() const {
         std::cout << "{ " << left << ", " << right << ", " << up << ", " << down << " }";
     }
 };
@@ -39,25 +39,25 @@ Rectangle intersection(const std::vector<Rectangle>& rectangles) {
     return result;
 }
 
-double intersectionArea(const std::vector<Rectangle>& rectangles) {
-    return intersection(rectangles).Area();
+double intersection_area(const std::vector<Rectangle>& rectangles) {
+    return intersection(rectangles).area();
 }
 
-Rectangle boundingBox(Rectangle rectangle1, Rectangle rectangle2) {
+Rectangle bounding_box(Rectangle rectangle1, Rectangle rectangle2) {
     return {std::min(rectangle1.left, rectangle2.left),
             std::max(rectangle1.right, rectangle2.right),
             std::min(rectangle1.up, rectangle2.up),
             std::max(rectangle1.down, rectangle2.down)};
 }
 
-Rectangle boundingBox(const std::vector<Rectangle>& rectangles) {
+Rectangle bounding_box(const std::vector<Rectangle>& rectangles) {
     if (rectangles.empty()) {
         return {};
     }
 
     Rectangle result = rectangles.front();
     for (Rectangle rectangle : rectangles) {
-        result = boundingBox(result, rectangle);
+        result = bounding_box(result, rectangle);
     }
     return result;
 }
@@ -65,11 +65,11 @@ Rectangle boundingBox(const std::vector<Rectangle>& rectangles) {
 int main() {
     std::vector<Rectangle> rectangles{{0, 4, 0, 2}, {1, 5, 1, 3}};
 
-    intersection(rectangles).Print();
+    intersection(rectangles).print();
     std::cout << '\n';
 
-    std::cout << intersectionArea(rectangles) << '\n';
+    std::cout << intersection_area(rectangles) << '\n';
 
-    boundingBox(rectangles).Print();
+    bounding_box(rectangles).print();
     std::cout << '\n';
 }

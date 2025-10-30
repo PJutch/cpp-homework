@@ -1,5 +1,7 @@
+#include <cassert>
 #include <cstdint>
-#include <iostream>
+#include <print>
+#include <sstream>
 
 class IpV4 {
 public:
@@ -46,7 +48,7 @@ public:
             os << static_cast<int>(addr.m_components[i]);
 
             if (i + 1 < IpV4::COMPONENT_COUNT) {
-                std::cout << '.';
+                os << '.';
             }
         }
         return os;
@@ -60,9 +62,18 @@ private:
 
 int main() {
     IpV4 addr;
-    std::cin >> addr;
+
+    std::stringstream stream;
+    stream << "12.144.219.255";
+    stream >> addr;
 
     ++addr;
 
-    std::cout << addr << '\n';
+    std::stringstream stream2;
+    stream2 << addr;
+
+    std::string result;
+    stream2 >> result;
+
+    assert(result == "12.144.220.0");
 }
